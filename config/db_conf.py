@@ -1,0 +1,4 @@
+USER = ''
+PASSWD = ''
+HOST = ''
+DATABESE = ''
