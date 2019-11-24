@@ -1,4 +1,5 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
+from config import db_conf as db_conf
 import modules as mod
 
 def main():
@@ -22,9 +23,9 @@ def main():
 
     sparql.setReturnFormat(JSON)
     sparql_data = sparql.query().convert()
-    db_data = mod.get()
     voice_actor_lists = []
     value_lists = []
+    db_data = mod.get(db_conf.TABLE)
 
     for row in sparql_data['results']['bindings']:
         if row['name']['type'] == 'literal':
@@ -35,7 +36,7 @@ def main():
             value_lists.append("('{name}')".format(name=row))
 
         values = ','.join(value_lists)
-        sql = "INSERT INTO `voice_actors` (name) VALUE {values};".format(values=values)
+        sql = "INSERT INTO `{table_name}` (name) VALUE {values};".format(values=values, table_name=db_conf.TABLE)
         mod.insert(sql)
 
 if __name__ == '__main__':
