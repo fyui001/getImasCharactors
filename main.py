@@ -30,7 +30,7 @@ def main():
         }
     """)
 
-    sql = "INSERT INTO `{table_name}` (name, nameKana, age, bust, hip, waist, color, voice_actor, title) VALUES".format(table_name=db_conf.TABLE)
+    sql = "INSERT INTO `{table_name}` (name, name_kana, age, bust, hip, waist, color, voice_actor, title) VALUES".format(table_name=db_conf.TABLE)
 
     sparql.setReturnFormat(JSON)
     sparql_data = sparql.query().convert()

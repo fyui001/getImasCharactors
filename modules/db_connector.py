@@ -22,7 +22,7 @@ def table_check(table_name):
         cur.execute("CREATE TABLE `{table_name}` ("
             "`id` int(11) NOT NULL AUTO_INCREMENT,"
             "`name` varchar(255) NOT NULL DEFAULT '',"
-            "`nameKana` varchar(255) NOT NULL DEFAULT '',"
+            "`name_kana` varchar(255) NOT NULL DEFAULT '',"
             "`age` int(11) UNSIGNED NOT NULL DEFAULT 0,"
             "`bust` float UNSIGNED NOT NULL DEFAULT 0,"
             "`hip` float UNSIGNED NOT NULL DEFAULT 0,"
