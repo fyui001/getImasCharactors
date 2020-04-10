@@ -1,5 +1,0 @@
-USER = ''
-PASSWD = ''
-HOST = ''
-DATABESE = ''
-TABLE = ''

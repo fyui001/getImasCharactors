@@ -1,0 +1,5 @@
+[DEFAULT]
+HOST = localhost
+USER = root
+PASSWD = passwd
+DATA_BASE = data_base

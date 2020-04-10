@@ -1,13 +1,18 @@
-from config import db_conf as db_conf
 import mysql.connector as connector
+import configparser
+import os
 
 def connect():
+        base = os.path.dirname(os.path.abspath(__file__))
+        conf_path = os.path.normpath(os.path.join(base, '../'))
+        conf = configparser.ConfigParser()
+        conf.read(conf_path+'/config/dbconfig.ini', encoding='utf-8')
     try:
         db = connector.connect(
-            user = db_conf.USER,
-            passwd = db_conf.PASSWD,
-            host = db_conf.HOST,
-            db = db_conf.DATABESE
+            user = conf['DEFAULT']['USER'],
+            passwd = conf['DEFAULT']['PASSWD'],
+            host = conf['DEFAULT']['HOST'],
+            db = conf['DEFAULT']['DATABESE']
         )
         return db
     except Exception as e:
