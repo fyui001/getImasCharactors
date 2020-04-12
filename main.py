@@ -1,5 +1,6 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
-from config import db_conf as db_conf
+import configparser
+import os
 import modules as mod
 
 def main():
@@ -30,15 +31,19 @@ def main():
         }
     """)
 
-    sql = "INSERT INTO `{table_name}` (name, name_kana, age, bust, hip, waist, color, voice_actor, title) VALUES".format(table_name=db_conf.TABLE)
 
     sparql.setReturnFormat(JSON)
     sparql_data = sparql.query().convert()
+    base = os.path.dirname(os.path.abspath(__file__))
+    conf_path = os.path.normpath(os.path.join(base, './'))
+    conf = configparser.ConfigParser()
+    conf.read(conf_path+'/config/dbconfig.ini', encoding='utf-8')
     imas_characters = []
     value_lists = []
-    db_data = mod.get(db_conf.TABLE)
+    db_data = mod.get(conf['DEFAULT']['TABLE'])
+    sql = "INSERT INTO `{table_name}` (name, name_kana, age, bust, hip, waist, color, voice_actor, title) VALUES".format(conf['DETAULT']['TABLE'])
     if (len(db_data) != 0):
-        mod.truncate(db_conf.TABLE)
+        mod.truncate(conf['TABLE'])
 
     #insert文を作る
     for row in sparql_data['results']['bindings']:
@@ -65,18 +70,6 @@ def main():
     sql = sql.rstrip(',')
     sql += ';'
     mod.insert(sql)
-
-    '''
-        MEMO: 差分更新してやるやつを実装したほうがきれいかなぁ
-        声優だけ撮ってきてた時の差分更新してるやつ
-        if set(db_data) != set(imas_characters):
-            for row in list(set(imas_characters) - set(db_data)):
-                value_lists.append("('{name}')".format(name=row))
-
-            values = ','.join(value_lists)
-            sql = "INSERT INTO `{table_name}` (name) VALUE {values};".format(values=values, table_name=db_conf.TABLE)
-            mod.insert(sql)
-    '''
 
 if __name__ == '__main__':
     main()
