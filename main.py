@@ -31,8 +31,6 @@ def main():
         }
     """)
 
-    sql = "INSERT INTO `{table_name}` (name, name_kana, age, bust, hip, waist, color, voice_actor, title) VALUES".format(table_name=conf['DEFAULT']['TABLE'])
-
     sparql.setReturnFormat(JSON)
     sparql_data = sparql.query().convert()
     base = os.path.dirname(os.path.abspath(__file__))
@@ -41,6 +39,7 @@ def main():
     conf.read(conf_path+'/config/dbconfig.ini', encoding='utf-8')
     imas_characters = []
     value_lists = []
+    sql = "INSERT INTO `{table_name}` (name, name_kana, age, bust, hip, waist, color, voice_actor, title) VALUES".format(table_name=conf['DEFAULT']['TABLE'])
     db_data = mod.get(conf['DEFAULT']['TABLE'])
     if (len(db_data) != 0):
         mod.truncate(conf['DEFAULT']['TABLE'])
