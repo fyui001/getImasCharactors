@@ -2,4 +2,5 @@
 HOST = localhost
 USER = root
 PASSWD = passwd
+TABLE = table
 DATA_BASE = data_base

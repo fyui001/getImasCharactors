@@ -3,10 +3,10 @@ import configparser
 import os
 
 def connect():
-        base = os.path.dirname(os.path.abspath(__file__))
-        conf_path = os.path.normpath(os.path.join(base, '../'))
-        conf = configparser.ConfigParser()
-        conf.read(conf_path+'/config/dbconfig.ini', encoding='utf-8')
+    base = os.path.dirname(os.path.abspath(__file__))
+    conf_path = os.path.normpath(os.path.join(base, '../'))
+    conf = configparser.ConfigParser()
+    conf.read(conf_path+'/config/dbconfig.ini', encoding='utf-8')
     try:
         db = connector.connect(
             user = conf['DEFAULT']['USER'],
