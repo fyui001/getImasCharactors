@@ -1,6 +1,6 @@
 __pycache__
 files
-.dbconfig.ini
+dbconfig.ini
 
 # IDE and editor specific files #
 /nbproject
