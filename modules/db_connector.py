@@ -12,7 +12,7 @@ def connect():
             user = conf['DEFAULT']['USER'],
             passwd = conf['DEFAULT']['PASSWD'],
             host = conf['DEFAULT']['HOST'],
-            db = conf['DEFAULT']['DATABESE']
+            db = conf['DEFAULT']['DATA_BASE']
         )
         return db
     except Exception as e:
