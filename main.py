@@ -1,10 +1,10 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 import configparser
 import os
-import modules as mod
+from modules.DbModule import DbModule
 
 def main():
-
+    db = DbModule()
     sparql = SPARQLWrapper("https://sparql.crssnky.xyz/spql/imas/query")
     sparql.setQuery("""
         PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
@@ -40,9 +40,9 @@ def main():
     imas_characters = []
     value_lists = []
     sql = "INSERT INTO `{table_name}` (name, name_kana, age, bust, hip, waist, color, voice_actor, title) VALUES".format(table_name=conf['DEFAULT']['TABLE'])
-    db_data = mod.get(conf['DEFAULT']['TABLE'])
+    db_data = db.get(conf['DEFAULT']['TABLE'])
     if (len(db_data) != 0):
-        mod.truncate(conf['DEFAULT']['TABLE'])
+        db.truncate(conf['DEFAULT']['TABLE'])
 
     #insert文を作る
     for row in sparql_data['results']['bindings']:
@@ -68,7 +68,7 @@ def main():
                     )
     sql = sql.rstrip(',')
     sql += ';'
-    mod.insert(sql)
+    db.insert(sql)
 
 if __name__ == '__main__':
     main()
