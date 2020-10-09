@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [scripts]
-run = "python main.py"
+start = "python main.py"
 
 [packages]
 sparqlwrapper = "*"
