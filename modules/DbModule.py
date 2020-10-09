@@ -66,9 +66,23 @@ class DbModule:
         except:
             raise
 
-    def insert(self, sql: str):
+    def __get_value(self, values: list):
+        return '({parameters})'.format(
+            parameters = ', '.join(str('\'' + str(parameter) + '\'') for parameter in values)
+        )
+
+    def insert(self, table_name:str, columns: list, values: list):
         cnx = self.__db_connect()
         cur = cnx.cursor()
+        parameters = []
+        for value in values:
+            parameters.append(self.__get_value(value))
+
+        sql = "INSERT INTO `{table}` ({columns}) VALUES {values}".format(
+            table = table_name,
+            columns = ', '.join(columns),
+            values =  ', '.join(parameters)
+        )
 
         try:
             cur.execute(sql)
